@@ -22,8 +22,10 @@
 <div id="right" style="float: left; width: 25%; overflow: hidden;">
 <h2>Check your Listings</h2>
 <form action="" id="phone" name="phone" method="post">
-    <label for="phoneNumber">Enter your phone number: </label>
-    <input id="phoneNumber" type="number" name="phoneNumber">
+	{% csrf_token %}
+	{{ form }}
+    <!-- <label for="phoneNumber">Enter your phone number: </label> -->
+    <!-- <input id="phoneNumber" type="number" name="phoneNumber"> -->
     <input type="submit" value="OK">
 </form>
 
