@@ -81,7 +81,7 @@ DATABASES = {
         'ENGINE': 'django.db.backends.mysql',
         'NAME': 'shareAuto',
         'USER': 'user',
-        'PASSWORD': 'passpass',
+        'PASSWORD': 'password',
         'HOST': 'localhost',
         'PORT': '',
     }
