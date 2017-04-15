@@ -8,19 +8,27 @@
 <table>
 <tr>
   <th>Name</th>
-  <th>date</th>
-  <th>time</th>
+  <th>datetime</th>
   <th>occupancy</th>
   <th>phoneNumber</th>
 </tr>
-{% for b in obj %}
+{% for row in obj %}
 <tr>
-  <td>{{ b.Name }}</td>
-  <td>{{ b.datetime }}</td>
-  <td>{{ b.occupancy }}</td>
-  <td>{{ b.phoneNumber }}</td>
+  <td>{{ row.Name }}</td>
+  <td>{{ row.datetime }}</td>
+  <td>{{ row.occupancy }}</td>
+  <td>{{ row.phoneNumber }}</td>
+
+ <td> <form action="addtolist" id="addMe" name="addMe" method="POST">
+  {% csrf_token %}
+  {{ form }}
+  <input type="hidden" value={{row.phoneNumber}} name = "numberlisting">
+    <!-- <label for="phoneNumber">Enter your phone number: </label> -->
+    <!-- <input id="phoneNumber" type="number" name="phoneNumber"> -->
+    <input type="submit" value="OK">
+</form></td>
+
 </tr>
 {% endfor %}
 </table>
 
-{% endblock %}

@@ -60,3 +60,44 @@ def showListings(request):
         infoForm_ = infoForm()
     context = {'infoForm' : infoForm_, 'phoneForm' : phoneForm_ }
     return render(request, 'startup.html', context)	
+
+def addToListing(request):
+	# if this is a POST request we need to process the form data
+    if request.method == 'POST':
+    	addMeForm_ = addMeForm(request.POST)
+    	if addMeForm_.is_valid():
+    		phonenumber = addForm_.cleaned_data['numberlisting']
+    		name = addForm_.cleaned_data['your_name']
+    		userphone = addForm_.cleaned_data['phoneNumber']
+    		db = addMeForm(phoneNumberListing = phonenumber,  userPhone = userphone, userName = name)
+        	
+
+    # if a GET (or any other method) we'll create a blank form
+    else:
+        phoneForm_ = phoneForm()
+        infoForm_ = infoForm()
+    context = {'infoForm' : infoForm_, 'phoneForm' : phoneForm_ }
+    return render(request, 'startup.html', context)	
+
+# def createListing(request):
+# 	# if this is a POST request we need to process the form data
+#     if request.method == 'POST':
+#     	createListingForm_ = createListingForm(request.POST)
+#     	if createListingForm_.is_valid():
+#     		date = infoForm_.cleaned_data['date_']
+# 			time = infoForm_.cleaned_data['time_']
+# 			dest = infoForm_.cleaned_data['dest']
+#     		name = createListingForm_.cleaned_data['name']
+#     		userphone = createListingForm_.cleaned_data['userphone']
+#     		datetime_ = datetime.datetime.combine(date, time)
+
+    		
+
+
+#     else:
+#         phoneForm_ = phoneForm()
+#         infoForm_ = infoForm()
+#     context = {'infoForm' : infoForm_, 'phoneForm' : phoneForm_ }
+#     return render(request, 'startup.html', context)	
+
+

@@ -27,5 +27,11 @@ class ToCNB(models.Model):
   		return' '.join([
   			self.datetime,
   			self.name,
-  			self.phoneNumber, 
+  			self.phoneNumber,
+  			self.occupancy, 
   		])
+
+class Users(models.Model):
+	phoneNumberListing = models.IntegerField()(primary_key = True)
+	userPhone = models.IntegerField()
+	userName = models.CharField(max_length=20)
