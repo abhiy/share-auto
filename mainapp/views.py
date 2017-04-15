@@ -68,9 +68,7 @@ def addToListing(request):
     	if addMeForm_.is_valid():
     		phonenumber = addForm_.cleaned_data['numberlisting']
     		name = addForm_.cleaned_data['your_name']
-    		userphone = addForm_.cleaned_data['phoneNumber']
-    		db = addMeForm(phoneNumberListing = phonenumber,  userPhone = userphone, userName = name)
-        	
+    		userphone = addForm_.cleaned_data['phoneNumber']        	
 
     # if a GET (or any other method) we'll create a blank form
     else:
