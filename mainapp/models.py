@@ -32,6 +32,12 @@ class ToCNB(models.Model):
   		])
 
 class Users(models.Model):
-	phoneNumberListing = models.IntegerField()(primary_key = True)
+	phoneNumberListing = models.IntegerField(primary_key = True)
 	userPhone = models.IntegerField()
 	userName = models.CharField(max_length=20)
+	def __unicode__(self):
+  		return' '.join([
+  			self.userName,
+  			self.userPhone,
+  			self.phoneNumberListing,
+  		])

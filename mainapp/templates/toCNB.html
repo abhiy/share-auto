@@ -1,6 +1,6 @@
 {% extends "base.html" %}
 
-{% block title %}To CNB !!{% endblock %}
+{% block title %}{{ header }}{% endblock %}
 
 {% block content %}
 
@@ -19,16 +19,19 @@
   <td>{{ row.occupancy }}</td>
   <td>{{ row.phoneNumber }}</td>
 
- <td> <form action="addtolist" id="addMe" name="addMe" method="POST">
+ <td> <form action="addtolist" id="addMe" name="addMe" method="POST" onload="populate()">
   {% csrf_token %}
   {{ form }}
-  <input type="hidden" value={{row.phoneNumber}} name = "numberlisting">
-    <!-- <label for="phoneNumber">Enter your phone number: </label> -->
-    <!-- <input id="phoneNumber" type="number" name="phoneNumber"> -->
-    <input type="submit" value="OK">
+  <input type="submit" value="Add Me">
 </form></td>
-
+<script>
+  function populate(){
+    document.getElementById("numberlisting").value = {{ row.phoneNumber }}
+    document.getElementById("header").value = {{ header }}
+  }
+</script>
 </tr>
 {% endfor %}
 </table>
 
+{% endblock %}

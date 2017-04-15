@@ -50,8 +50,9 @@ def showListings(request):
             time_end = datetime_ + datetime.timedelta(hours = 1)
             if(dest == 'cnb'):
             	db = ToCNB.objects.filter(datetime__range=(time_start, time_end))
-            # context = {'number' : number}
-            context = {'obj' : db}
+            	addMeForm_ = addMeForm()
+            	context = {'obj' : db, 'header' : "ToCNB", 'form' : addMeForm_}
+
             return render(request, "toCNB.html", context)
 
     # if a GET (or any other method) we'll create a blank form
@@ -66,14 +67,22 @@ def addToListing(request):
     if request.method == 'POST':
     	addMeForm_ = addMeForm(request.POST)
     	if addMeForm_.is_valid():
-    		phonenumber = addForm_.cleaned_data['numberlisting']
-    		name = addForm_.cleaned_data['your_name']
-    		userphone = addForm_.cleaned_data['phoneNumber']        	
+    		name = addMeForm_.cleaned_data['your_name']
+    		userphone = addMeForm_.cleaned_data['phoneNumber'] 
+    		phonenumber = addMeForm_.cleaned_data['numberlisting']
+    		db = addMeForm_.cleaned_data['header']
+    		user = Users(phoneNumberListing = phoneNumber, userPhone = userphone, userName = name)
+    		user.save()
+    		phoneForm_ = phoneForm()
+    		infoForm_ = infoForm()
+
+    	else:
+    		phoneForm_ = phoneForm()
+    		context = {'phoneForm' : phoneForm_ }
+    		return render(request, 'startup.html', context)	
 
     # if a GET (or any other method) we'll create a blank form
-    else:
-        phoneForm_ = phoneForm()
-        infoForm_ = infoForm()
+
     context = {'infoForm' : infoForm_, 'phoneForm' : phoneForm_ }
     return render(request, 'startup.html', context)	
 
@@ -82,20 +91,23 @@ def addToListing(request):
 #     if request.method == 'POST':
 #     	createListingForm_ = createListingForm(request.POST)
 #     	if createListingForm_.is_valid():
-#     		date = infoForm_.cleaned_data['date_']
-# 			time = infoForm_.cleaned_data['time_']
-# 			dest = infoForm_.cleaned_data['dest']
-#     		name = createListingForm_.cleaned_data['name']
-#     		userphone = createListingForm_.cleaned_data['userphone']
+#             dest = createListingForm_.cleaned_data['dest']
+#     		date = createListingForm_.cleaned_data['date_']
+# 			time = createListingForm_.cleaned_data['time_']
+#             datetime_ = datetime.datetime.combine(date, time)
+# 			dest = createListingForm_.cleaned_data['dest']
+#     		name = createListingForm_.cleaned_data['your_name']
+#     		userphone = createListingForm_.cleaned_data['phoneNumber']
 #     		datetime_ = datetime.datetime.combine(date, time)
+#             occupancy = 1
 
-    		
-
+#             if (dest == 'cnb'):
+#                 entry = ToCNB(datetime = datetime_, name = name, occupancy=occupancy, phoneNumber=userphone)
+#                 entry.save()
 
 #     else:
-#         phoneForm_ = phoneForm()
-#         infoForm_ = infoForm()
-#     context = {'infoForm' : infoForm_, 'phoneForm' : phoneForm_ }
-#     return render(request, 'startup.html', context)	
+#         createListingForm_ = createListingForm_()
+#     context = {'createListingForm' : createListingForm_}
+#     return render(request, 'successfullyAdded.html', context)
 
 
