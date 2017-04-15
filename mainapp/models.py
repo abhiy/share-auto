@@ -28,29 +28,25 @@ class ToCNB(models.Model):
   			self.datetime,
   			self.name,
   			self.phoneNumber,
-  			self.occupancy, 
+  			self.occupancy,
   		])
 
-# class ToCampus(models.Model):
-#     datetime = models.DateTimeField()
-#     name = models.CharField(max_length=20)
-#     occupancy = models.IntegerField()
-#     phoneNumber = models.CharField(max_length=11, primary_key=True)
-#     def __unicode__(self):
-#       return' '.join([
-#         self.datetime,
-#         self.name,
-#         self.phoneNumber,
-#         self.occupancy, 
-#       ])
+class ToCampus(models.Model):
+    datetime = models.DateTimeField()
+    name = models.CharField(max_length=20)
+    occupancy = models.IntegerField()
+    phoneNumber = models.CharField(max_length=11, primary_key=True)
+    def __unicode__(self):
+      return' '.join([
+        self.datetime,
+        self.name,
+        self.phoneNumber,
+        self.occupancy, 
+      ])
 
 class Users(models.Model):
-	phoneNumberListing = models.IntegerField(primary_key = True)
-	userPhone = models.IntegerField()
+	phoneNumberListing = models.CharField(primary_key = True, max_length=20)
+	userPhone = models.CharField(max_length=20)
 	userName = models.CharField(max_length=20)
 	def __unicode__(self):
-  		return' '.join([
-  			self.userName,
-  			self.userPhone,
-  			self.phoneNumberListing,
-  		])
+  		return self.userName

@@ -12,7 +12,7 @@ def startup(request):
     return render(request, 'startup.html', context)
 
 def myListings(request):
-	# if this is a POST request we need to process the form data
+    # if this is a POST request we need to process the form data
     if request.method == 'POST':
         # create a form instance and populate it with data from the request:
         phoneForm_ = phoneForm(request.POST)
@@ -23,22 +23,22 @@ def myListings(request):
             # redirect to a new URL:
             number = phoneForm_.cleaned_data['phoneNumber']
             context = {'number' : number}
-            return render(request, "resp.html", context)
+            #return render(request, "resp.html", context)
 
-            # db_cnb = ToCNB.objects.filter(phonenumber = number)
-            # db_cmps = ToCampus.objects.filter(phonenumber = number)
-            # context = {'obj_cnb': db_cnb, 'obj_cmps': db_cmps}
-            # return render(request, "myListings.html", context)
+            db_cnb = ToCNB.objects.filter(phoneNumber = number)
+            db_cmps = ToCampus.objects.filter(phoneNumber = number)
+            context = {'obj_cnb': db_cnb, 'obj_cmps': db_cmps}
+            return render(request, "myListings.html", context)
 
     # if a GET (or any other method) we'll create a blank form
     else:
         phoneForm_ = phoneForm()
         infoForm_ = infoForm()
     context = {'infoForm' : infoForm_, 'phoneForm' : phoneForm_ }
-    return render(request, 'startup.html', context)	
+    return render(request, 'startup.html', context)    
 
 def showListings(request):
-	# if this is a POST request we need to process the form data
+    # if this is a POST request we need to process the form data
     if request.method == 'POST':
         # create a form instance and populate it with data from the request:
         infoForm_ = infoForm(request.POST)
@@ -60,9 +60,9 @@ def showListings(request):
             time_start = datetime_ - datetime.timedelta(hours = 1)
             time_end = datetime_ + datetime.timedelta(hours = 1)
             if(dest == 'cnb'):
-            	db = ToCNB.objects.filter(datetime__range=(time_start, time_end))
-            	addMeForm_ = addMeForm()
-            	context = {'obj' : db, 'header' : "ToCNB", 'form' : addMeForm_}
+                db = ToCNB.objects.filter(datetime__range=(time_start, time_end))
+                addMeForm_ = addMeForm()
+                context = {'obj' : db, 'header' : "ToCNB", 'form' : addMeForm_}
 
             # else if (dest == 'cmps'):
             #     db = ToCampus.objects.filter(datetime__range=(time_start, time_end))
@@ -77,35 +77,30 @@ def showListings(request):
         phoneForm_ = phoneForm()
         infoForm_ = infoForm()
     context = {'infoForm' : infoForm_, 'phoneForm' : phoneForm_ }
-    return render(request, 'startup.html', context)	
+    return render(request, 'startup.html', context)    
 
 def addToListing(request):
-	# if this is a POST request we need to process the form data
+    # if this is a POST request we need to process the form data
     if request.method == 'POST':
-    	addMeForm_ = addMeForm(request.POST)
-    	if addMeForm_.is_valid():
-    		name = addMeForm_.cleaned_data['your_name']
-    		userphone = addMeForm_.cleaned_data['phoneNumber']
-    		phonenumber = addMeForm_.cleaned_data['numberlisting']
-    		db = addMeForm_.cleaned_data['header']
-            # phonenumber = request.GET.get("numberlisting", None)
-            # header = request.GET.get("header", None)
+        addMeForm_ = addMeForm(request.POST)
+        if addMeForm_.is_valid():
+            name = addMeForm_.cleaned_data['your_name']
+            userphone = addMeForm_.cleaned_data['phoneNumber']
+            phonenumber = request.POST.get("numberlisting", None)
+            db = request.POST.get("header", None)
+            if db == "ToCNB":
+                entry = ToCNB.objects.get(phoneNumber=phonenumber)
+                entry.occupancy = entry.occupancy + 1
+                entry.save()
 
-            # if db == 'ToCNB':
-            #     entry = ToCNB.objects.filter(phonenumber=numberlisting)
-            #     entry.occupancy = entry.occupancy + 1
-            # else if (db == 'cmps'):
-            #     entry = ToCampus.objects.filter(phonenumber=numberlisting)
-            #     entry.occupancy = entry.occupancy + 1
+            user = Users(phoneNumberListing = phonenumber, userPhone = userphone, userName = name)
+            user.save()
+            return render(request, 'successfullyAdded.html')
 
-    		user = Users(phoneNumberListing = phonenumber, userPhone = userphone, userName = name)
-    		user.save()
-    		return render(request,  'successfullyAdded.html')
-
-    	else:
-    		addMeForm_ = addMeForm()
-    		context = {'form' : addMeForm_ }
-    		return render(request, 'startup.html', context)
+        else:
+            addMeForm_ = addMeForm()
+            context = {'form' : addMeForm_ }
+            return render(request, 'startup.html', context)
 
     # if a GET (or any other method) we'll create a blank form
 
@@ -117,10 +112,10 @@ def goToCreateListing(request):
     return render(request, 'goToCreateListing.html', {'form': createListingForm_})
 
 def createListing(request):
-	# if this is a POST request we need to process the form data
+    # if this is a POST request we need to process the form data
     if request.method == 'POST':
-    	createListingForm_ = createListingForm(request.POST)
-    	if createListingForm_.is_valid():
+        createListingForm_ = createListingForm(request.POST)
+        if createListingForm_.is_valid():
             dest = createListingForm_.cleaned_data['dest']
             date = createListingForm_.cleaned_data['date_']
             time = createListingForm_.cleaned_data['time_']
