@@ -1,0 +1,26 @@
+{% extends "base.html" %}
+
+{% block title %}To CNB !!{% endblock %}
+
+{% block content %}
+
+
+<table>
+<tr>
+  <th>Name</th>
+  <th>date</th>
+  <th>time</th>
+  <th>occupancy</th>
+  <th>phoneNumber</th>
+</tr>
+{% for b in obj %}
+<tr>
+  <td>{{ b.Name }}</td>
+  <td>{{ b.datetime }}</td>
+  <td>{{ b.occupancy }}</td>
+  <td>{{ b.phoneNumber }}</td>
+</tr>
+{% endfor %}
+</table>
+
+{% endblock %}

@@ -3,6 +3,6 @@ from django.conf.urls import url
 
 urlpatterns = [
 	url(r'userlist', views.myListings),
+	url(r'showlist', views.showListings),
     url(r'', views.startup),
-    url(r'showlist', views.showListings),
  ]

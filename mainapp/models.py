@@ -19,8 +19,13 @@ class Page(models.Model):
         return self.title
 
 class ToCNB(models.Model):
-  time = models.TimeField(input_formats='%H:%M')
-  date = models.DateField(input_formats='%d-%m-%Y')
-  name = models.CharField(max_length=20)
-  occupancy = models.IntegerField()
-  phoneNumber = models.CharField(max_length=11, primary_key=True)
+	datetime = models.DateTimeField()
+  	name = models.CharField(max_length=20)
+  	occupancy = models.IntegerField()
+  	phoneNumber = models.CharField(max_length=11, primary_key=True)
+  	def __unicode__(self):
+  		return' '.join([
+  			self.datetime,
+  			self.name,
+  			self.phoneNumber, 
+  		])
