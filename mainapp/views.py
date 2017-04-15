@@ -1,29 +1,52 @@
 from django.shortcuts import render
 from django.http import HttpResponseRedirect
-from .forms import phoneForm 
-from .forms import NameForm 
+from .forms import * 
 
 # Create your views here
 def startup(request):
-    # if this is a POST request we need to process the form data
+    phoneForm_ = phoneForm()
+    infoForm_ = infoForm()
+    context = {'infoForm' : infoForm_, 'phoneForm' : phoneForm_ }
+    return render(request, 'startup.html', context)
+
+def myListings(request):
+	# if this is a POST request we need to process the form data
     if request.method == 'POST':
         # create a form instance and populate it with data from the request:
-        form = phoneForm(request.POST)
+        phoneForm_ = phoneForm(request.POST)
         # check whether it's valid:
-        if form.is_valid():
+        if phoneForm_.is_valid():
             # process the data in form.cleaned_data as required
             # ...
             # redirect to a new URL:
-            number = form.cleaned_data['phoneNumber']
+            number = phoneForm_.cleaned_data['phoneNumber']
             context = {'number' : number}
             return render(request, "resp.html", context)
 
     # if a GET (or any other method) we'll create a blank form
     else:
-        form = phoneForm()
+        phoneForm_ = phoneForm()
+        infoForm_ = infoForm()
+    context = {'infoForm' : infoForm_, 'phoneForm' : phoneForm_ }
+    return render(request, 'startup.html', context)	
 
-    return render(request, 'startup.html', {'form': form})
+def showListings(request):
+	# if this is a POST request we need to process the form data
+    if request.method == 'POST':
+        # create a form instance and populate it with data from the request:
+        infoForm_ = infoForm(request.POST)
+        # check whether it's valid:
+        if infoForm_.is_valid():
+            # process the data in form.cleaned_data as required
+            # ...
+            # redirect to a new URL:
+            number = infoForm_.cleaned_data['phoneNumber']
+            context = {'number' : number}
+            return render(request, "resp.html", context)
 
-def listings(request, number):
-	context = {'number': number}
-	return render(request, "resp.html", context)
+    # if a GET (or any other method) we'll create a blank form
+    else:
+        phoneForm_ = phoneForm()
+        infoForm_ = infoForm()
+    context = {'infoForm' : infoForm_, 'phoneForm' : phoneForm_ }
+    return render(request, 'startup.html', context)	
