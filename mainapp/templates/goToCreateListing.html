@@ -1,0 +1,15 @@
+<!DOCTYPE html>
+<html>
+
+<div style="float: center; width: 50%;">
+<h2> Creating New Post</h2>
+
+<form action="/createlist" name="createListingForm" method="POST">
+	{% csrf_token %}
+	{{ createListingForm }}
+	<input type="submit" value="OK">
+</form>
+
+</div>
+
+</html>

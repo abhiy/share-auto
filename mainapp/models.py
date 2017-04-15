@@ -19,17 +19,30 @@ class Page(models.Model):
         return self.title
 
 class ToCNB(models.Model):
-	datetime = models.DateTimeField()
-  	name = models.CharField(max_length=20)
-  	occupancy = models.IntegerField()
-  	phoneNumber = models.CharField(max_length=11, primary_key=True)
-  	def __unicode__(self):
+    datetime = models.DateTimeField()
+    name = models.CharField(max_length=20)
+    occupancy = models.IntegerField()
+    phoneNumber = models.CharField(max_length=11, primary_key=True)
+    def __unicode__(self):
   		return' '.join([
   			self.datetime,
   			self.name,
   			self.phoneNumber,
   			self.occupancy, 
   		])
+
+# class ToCampus(models.Model):
+#     datetime = models.DateTimeField()
+#     name = models.CharField(max_length=20)
+#     occupancy = models.IntegerField()
+#     phoneNumber = models.CharField(max_length=11, primary_key=True)
+#     def __unicode__(self):
+#       return' '.join([
+#         self.datetime,
+#         self.name,
+#         self.phoneNumber,
+#         self.occupancy, 
+#       ])
 
 class Users(models.Model):
 	phoneNumberListing = models.IntegerField(primary_key = True)

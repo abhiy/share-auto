@@ -1,0 +1,47 @@
+{% extends "base.html" %}
+
+{% block title %}{% endblock %}
+
+{% block content %}
+
+<h1>Your Listings to CNB !!</h1>
+
+<table>
+<tr>
+  <th>Name</th>
+  <th>datetime</th>
+  <th>occupancy</th>
+  <th>phoneNumber</th>
+</tr>
+{% for row in obj_cnb %}
+<tr>
+  <td>{{ row.Name }}</td>
+  <td>{{ row.datetime }}</td>
+  <td>{{ row.occupancy }}</td>
+  <td>{{ row.phoneNumber }}</td>
+  
+</tr>
+{% endfor %}
+</table>
+
+<h1>Your Listings to Campus !!</h1>
+
+<table>
+<tr>
+  <th>Name</th>
+  <th>datetime</th>
+  <th>occupancy</th>
+  <th>phoneNumber</th>
+</tr>
+{% for row in obj_cmps %}
+<tr>
+  <td>{{ row.Name }}</td>
+  <td>{{ row.datetime }}</td>
+  <td>{{ row.occupancy }}</td>
+  <td>{{ row.phoneNumber }}</td>
+  
+</tr>
+{% endfor %}
+</table>
+
+{% endblock %}

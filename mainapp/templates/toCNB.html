@@ -21,7 +21,7 @@
 
  <td> <form action="addtolist" id="addMe" name="addMe" method="POST" onload="populate()">
   {% csrf_token %}
-  {{ form }}
+  {{ addMeForm }}
   <input type="submit" value="Add Me">
 </form></td>
 <script>
@@ -33,5 +33,9 @@
 </tr>
 {% endfor %}
 </table>
+
+<form action="/goToCreateListing">
+  Willing To Share !!<br><input type="submit" value="Create Post">
+</form>
 
 {% endblock %}
