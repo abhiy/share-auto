@@ -80,9 +80,11 @@ def showListings(request):
 def showMembers(request):
 
     if request.method == 'POST':
+        # db_cnb = ToCNB.objects.filter(phoneNumber = number)
+        # db_cmps = ToCampus.objects.filter(phoneNumber = number)
         phonenumber = request.POST.get("numberlisting1", None)
         userEntries = Users.objects.filter(phoneNumberListing=phonenumber)
-        context = {'cnb_users': userEntries}
+        context = {'cnb_users': userEntries}#, 'obj_cnb': db_cnb, 'obj_cmps': db_cmps}
         return render(request, 'myListings.html', context)
 
 

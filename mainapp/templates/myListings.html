@@ -23,6 +23,7 @@
   {% csrf_token %}
   {{ form }}
   <input type="text" name="numberlisting1" id="numberlisting1" value={{ row.phoneNumber }}>
+  <input type="text" name="header1" id="header1" value="cnb">
   <input type="submit" value="View Members">
 </form></td>
   
@@ -70,6 +71,7 @@
   {% csrf_token %}
   {{ form }}
   <input type="text" name="numberlisting2" id="numberlisting2" value={{ row.phoneNumber }}>
+  <input type="text" name="header2" id="header2" value="cmps">
   <input type="submit" value="View Members">
 </form></td>
   
