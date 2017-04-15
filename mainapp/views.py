@@ -88,22 +88,24 @@ def addToListing(request):
     		userphone = addMeForm_.cleaned_data['phoneNumber']
     		phonenumber = addMeForm_.cleaned_data['numberlisting']
     		db = addMeForm_.cleaned_data['header']
-    		user = Users(phoneNumberListing = phoneNumber, userPhone = userphone, userName = name)
-    		user.save()
-    		phoneForm_ = phoneForm()
-    		infoForm_ = infoForm()
+            # phonenumber = request.GET.get("numberlisting", None)
+            # header = request.GET.get("header", None)
 
-            # if ('header' == 'cnb'):
+            # if db == 'ToCNB':
             #     entry = ToCNB.objects.filter(phonenumber=numberlisting)
             #     entry.occupancy = entry.occupancy + 1
-            # else if ('header' == 'cmps')
+            # else if (db == 'cmps'):
             #     entry = ToCampus.objects.filter(phonenumber=numberlisting)
             #     entry.occupancy = entry.occupancy + 1
 
+    		user = Users(phoneNumberListing = phonenumber, userPhone = userphone, userName = name)
+    		user.save()
+    		return render(request,  'successfullyAdded.html')
+
     	else:
-    		phoneForm_ = phoneForm()
-    		context = {'phoneForm' : phoneForm_ }
-    		return render(request, 'startup.html', context)	
+    		addMeForm_ = addMeForm()
+    		context = {'form' : addMeForm_ }
+    		return render(request, 'startup.html', context)
 
     # if a GET (or any other method) we'll create a blank form
 
@@ -111,7 +113,8 @@ def addToListing(request):
     return render(request, 'startup.html', context)
 
 def goToCreateListing(request):
-    return render(request, 'goToCreateListing.html')
+    createListingForm_ = createListingForm()
+    return render(request, 'goToCreateListing.html', {'form': createListingForm_})
 
 def createListing(request):
 	# if this is a POST request we need to process the form data
@@ -127,11 +130,11 @@ def createListing(request):
             userphone = createListingForm_.cleaned_data['phoneNumber']
             datetime_ = datetime.datetime.combine(date, time)
             occupancy = 1
+            context = {'form': createListingForm_}
 
             if (dest == 'cnb'):
                 entry = ToCNB(datetime = datetime_, name = name, occupancy=occupancy, phoneNumber=userphone)
                 entry.save()
-        return render(request, 'successfullyAdded.html')
             # else if (dest == 'cmps'):
             #     entry = ToCampus(datetime=datetime_, name = name, occupancy=1, phonenumber=userphone)
             #     entry.save()

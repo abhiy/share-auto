@@ -19,17 +19,20 @@
   <td>{{ row.occupancy }}</td>
   <td>{{ row.phoneNumber }}</td>
 
- <td> <form action="addtolist" id="addMe" name="addMe" method="POST" onload="populate()">
+ <td> <form action="addtolist" id="addMe" name="addMe" method="POST">
   {% csrf_token %}
-  {{ addMeForm }}
+  {{ form }}
+  <input type="text" name="numberlisting" id="numberlisting" value={{ row.phoneNumber }}>
+  <input type="text" name="header" id="header" value={{ header }}>
   <input type="submit" value="Add Me">
 </form></td>
-<script>
+<!-- <script>
   function populate(){
-    document.getElementById("numberlisting").value = {{ row.phoneNumber }}
-    document.getElementById("header").value = {{ header }}
+    document.getElementsByName("numberlisting")[0].value = {{ row.phoneNumber }}.toString()
+    document.getElementsByName("header")[0].value = {{ header }}.toString()
   }
-</script>
+  document.getElementById('addMe').load();
+</script> -->
 </tr>
 {% endfor %}
 </table>
