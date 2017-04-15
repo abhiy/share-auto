@@ -45,8 +45,6 @@ def showListings(request):
         # check whether it's valid:
         if infoForm_.is_valid():
             # process the data in form.cleaned_data as required
-            # ...
-            # redirect to a new URL:
             date = infoForm_.cleaned_data['date_']
             time = infoForm_.cleaned_data['time_']
             dest = infoForm_.cleaned_data['dest']
@@ -64,10 +62,10 @@ def showListings(request):
                 addMeForm_ = addMeForm()
                 context = {'obj' : db, 'header' : "ToCNB", 'form' : addMeForm_}
 
-            # else if (dest == 'cmps'):
-            #     db = ToCampus.objects.filter(datetime__range=(time_start, time_end))
-            #     addMeForm_ = addMeForm()
-            #     context = {'obj' : db, 'header' : "ToCampus", 'form' : addMeForm_}
+            elif (dest == 'cmps'):
+                db = ToCampus.objects.filter(datetime__range=(time_start, time_end))
+                addMeForm_ = addMeForm()
+                context = {'obj' : db, 'header' : "ToCampus", 'form' : addMeForm_}
 
 
             return render(request, "toCNB.html", context)
@@ -88,10 +86,17 @@ def addToListing(request):
             userphone = addMeForm_.cleaned_data['phoneNumber']
             phonenumber = request.POST.get("numberlisting", None)
             db = request.POST.get("header", None)
+
+
             if db == "ToCNB":
                 entry = ToCNB.objects.get(phoneNumber=phonenumber)
                 entry.occupancy = entry.occupancy + 1
                 entry.save()
+            elif db == 'ToCampus':
+                entry = ToCampus.objects.get(phoneNumber=phonenumber)
+                entry.occupancy = entry.occupancy + 1
+                entry.save()
+                
 
             user = Users(phoneNumberListing = phonenumber, userPhone = userphone, userName = name)
             user.save()
@@ -130,9 +135,9 @@ def createListing(request):
             if (dest == 'cnb'):
                 entry = ToCNB(datetime = datetime_, name = name, occupancy=occupancy, phoneNumber=userphone)
                 entry.save()
-            # else if (dest == 'cmps'):
-            #     entry = ToCampus(datetime=datetime_, name = name, occupancy=1, phonenumber=userphone)
-            #     entry.save()
+            elif (dest == 'cmps'):
+                entry = ToCampus(datetime=datetime_, name = name, occupancy=1, phoneNumber=userphone)
+                entry.save()
 
     else:
         createListingForm_ = createListingForm()
