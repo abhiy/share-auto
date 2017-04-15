@@ -7,5 +7,6 @@ urlpatterns = [
 	url(r'addtolist', views.addToListing),
 	url(r'goToCreateListing', views.goToCreateListing),
 	url(r'createlist', views.createListing),
+	url(r'showMembers', views.showMembers),
     url(r'', views.startup),
  ]

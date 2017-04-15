@@ -19,11 +19,37 @@
   <td>{{ row.datetime }}</td>
   <td>{{ row.occupancy }}</td>
   <td>{{ row.phoneNumber }}</td>
+  <td> <form action="showMembers" id="showMembers" name="showMembers" method="POST">
+  {% csrf_token %}
+  {{ form }}
+  <input type="text" name="numberlisting1" id="numberlisting1" value={{ row.phoneNumber }}>
+  <input type="submit" value="View Members">
+</form></td>
   
 </tr>
 {% endfor %}
 </table>
+
+<div style="bottom: 0">
+<table>
+<tr>
+  <th>Name</th>
+  <th>phoneNumber</th>
+</tr>
+  {% for row in cnb_users %}
+<tr>
+  <td>{{ row.userName }}</td>
+  <td>{{ row.userPhone }}</td>
+  </tr>
+  {% endfor %}
+</table>
 </div>
+
+
+</div>
+
+
+
 <div id="left" style="float: left; width: 50%; overflow: hidden;">
 <h1>Your Listings to Campus !!</h1>
 
@@ -34,15 +60,37 @@
   <th>occupancy</th>
   <th>phoneNumber</th>
 </tr>
-{% for row in obj_cmps %}
+{% for row in obj_cnb %}
 <tr>
   <td>{{ row.Name }}</td>
   <td>{{ row.datetime }}</td>
   <td>{{ row.occupancy }}</td>
   <td>{{ row.phoneNumber }}</td>
+  <td> <form action="showMembers" id="showMembers" name="showMembers" method="POST">
+  {% csrf_token %}
+  {{ form }}
+  <input type="text" name="numberlisting2" id="numberlisting2" value={{ row.phoneNumber }}>
+  <input type="submit" value="View Members">
+</form></td>
   
 </tr>
 {% endfor %}
 </table>
+
+<div>
+<table>
+<tr>
+  <th>Name</th>
+  <th>phoneNumber</th>
+</tr>
+  {% for row in cmps_users %}
+<tr>
+  <td>{{ row.userName }}</td>
+  <td>{{ row.userPhone }}</td>
+  </tr>
+  {% endfor %}
+</table>
+</div>
+
 </div>
 {% endblock %}
