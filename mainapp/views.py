@@ -108,8 +108,8 @@ def addToListing(request):
                 entry.occupancy = entry.occupancy + 1
                 entry.save()
                 
-
-            user = Users(phoneNumberListing = phonenumber, userPhone = userphone, userName = name)
+            uid_ = phonenumber+userphone
+            user = Users(uid = uid_, phoneNumberListing = phonenumber, userPhone = userphone, userName = name)
             user.save()
             return render(request, 'successfullyAdded.html')
 
@@ -140,16 +140,17 @@ def createListing(request):
             name = createListingForm_.cleaned_data['your_name']
             userphone = createListingForm_.cleaned_data['phoneNumber']
             datetime_ = datetime.datetime.combine(date, time)
-            occupancy = 1
+            uid_ = userphone + userphone
+            occupancy_ = 1
             context = {'form': createListingForm_}
 
             if (dest == 'cnb'):
-                entry = ToCNB(datetime = datetime_, name = name, occupancy=occupancy, phoneNumber=userphone)
+                entry = ToCNB(datetime = datetime_, name = name, occupancy=occupancy_, phoneNumber=userphone)
                 entry.save()
             elif (dest == 'cmps'):
-                entry = ToCampus(datetime=datetime_, name = name, occupancy=1, phoneNumber=userphone)
+                entry = ToCampus(datetime=datetime_, name = name, occupancy=occupancy_, phoneNumber=userphone)
                 entry.save()
-            user = Users(phoneNumberListing = userphone, userPhone = userphone, userName = name)
+            user = Users(uid = uid_, phoneNumberListing = userphone, userPhone = userphone, userName = name)
             user.save()
 
     else:

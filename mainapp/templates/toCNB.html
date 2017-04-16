@@ -26,7 +26,11 @@
   <input type="text" name="header" id="header" value={{ header }}>
   <input type="submit" value="Add Me">
 </form></td>
-
+  <td> <form action="showMembers" id="showMembers" name="showMembers" method="POST">
+  {% csrf_token %}
+  <input type="text" name="numberlisting1" id="numberlisting1" value={{ row.phoneNumber }}>
+  <input type="submit" value="View Members">
+</form></td>
 </tr>
 {% endfor %}
 </table>
