@@ -1,31 +1,36 @@
-<!DOCTYPE html>
-<html>
+{% extends "base.html" %}
+
+{% block title %}{% endblock %}
+
+{% block content %}
+
+
 
 <body>
 
-<div id="left" style="float: left; width: 75%; overflow: hidden;">
-<h2> Wish to Share</h2>
+<div id="left" style="float: left; width: 50%; overflow: hidden;">
+<h1 style="text-align: center;"> Search Auto Tempo Listings</h1>
 
 <form action="/showlist" id="showlist" name="showlist" method="post">
 	{% csrf_token %}
 	{{ infoForm }}
-	<input type="submit" value="OK">
+	<br><br>
+	<input type="submit" value="Search">
 </form>
 
 </div>
 
 
 <div id="right" style="float: left; width: 25%; overflow: hidden;">
-<h2>Check your Listings</h2>
+<h1>Check your Listings</h1>
 <form action="/userlist" id="phone" name="phone" method="post">
 	{% csrf_token %}
 	{{ phoneForm }}
-    <!-- <label for="phoneNumber">Enter your phone number: </label> -->
-    <!-- <input id="phoneNumber" type="number" name="phoneNumber"> -->
+	<br>
     <input type="submit" value="OK">
 </form>
 
 </script>
 </div>
 </body>
-</html>
+{% endblock %}

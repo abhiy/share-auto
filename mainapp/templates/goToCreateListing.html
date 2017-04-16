@@ -1,15 +1,19 @@
-<!DOCTYPE html>
-<html>
+{% extends "base.html" %}
+
+{% block title %}{% endblock %}
+
+{% block content %}
 
 <div style="float: center; width: 50%;">
-<h2> Creating New Post</h2>
+<h1> Creating New Post</h1>
 
 <form action="/createlist" name="createListingForm" method="POST">
 	{% csrf_token %}
 	{{ form }}
+	<br><br>
 	<input type="submit" value="OK">
 </form>
 
 </div>
 
-</html>
+{% endblock %}

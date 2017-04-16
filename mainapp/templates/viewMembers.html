@@ -1,0 +1,23 @@
+{% extends "base.html" %}
+
+{% block title %}{{ header }}{% endblock %}
+
+{% block content %}
+
+
+<table>
+<tr>
+  <th>Name</th>
+  <th>phoneNumber</th>
+</tr>
+{% for row in obj %}
+<tr>
+  <td>{{ row.userName }}</td>
+  <td>{{ row.userPhone }}</td>
+
+</tr>
+{% endfor %}
+</table>
+
+
+{% endblock %}

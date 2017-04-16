@@ -3,17 +3,17 @@
 {% block title %}{{ header }}{% endblock %}
 
 {% block content %}
+<div style="width:500px; margin:0 auto;">
 
-
-<table>
-<tr>
+<table border="1" style="background-color: rgb(100,240,100);">
+<tr style="text-align: center;">
   <th>Name</th>
-  <th>datetime</th>
-  <th>occupancy</th>
-  <th>phoneNumber</th>
+  <th>Date/Time</th>
+  <th>Occupancy</th>
+  <th>Mobile</th>
 </tr>
 {% for row in obj %}
-<tr>
+<tr style="text-align: center;">
   <td>{{ row.Name }}</td>
   <td>{{ row.datetime }}</td>
   <td>{{ row.occupancy }}</td>
@@ -36,8 +36,10 @@
 {% endfor %}
 </table>
 
+<div style="bottom: 200; position : absolute;">
 <form action="/goToCreateListing">
-  Willing To Share !!<br><input type="submit" value="Create Post">
+  <h1>Create a new post<br></h1><input type="submit" value="Create">
 </form>
-
+</div>
+</div>
 {% endblock %}

@@ -4,43 +4,44 @@
 
 {% block content %}
 <div id="left" style="float: left; width: 50%; overflow: hidden;">
-<h1>Your Listings to CNB !!</h1>
+<h1 style="text-align: center;">Your Listings to CNB</h1>
 
-<table>
+<table border="1" style="background-color: rgb(100,240,100)">
 <tr>
   <th>Name</th>
-  <th>datetime</th>
-  <th>occupancy</th>
-  <th>phoneNumber</th>
+  <th>Date/Time</th>
+  <th>Occupancy</th>
+  <th>Mobile</th>
+  <th>Actions</th>
 </tr>
 {% for row in obj_cnb %}
-<tr>
-  <td>{{ row.Name }}</td>
+<tr style="text-align: center;">
+  <td>{{ row.name }}</td>
   <td>{{ row.datetime }}</td>
   <td>{{ row.occupancy }}</td>
   <td>{{ row.phoneNumber }}</td>
-  <td> <<form action="showMembersCNB" id="showMembers" name="showMembers" method="POST">
+  <td style="text-align: center;"> <form action="showMembersCNB" id="showMembers" name="showMembers" method="POST">
   {% csrf_token %}
   {{ form }}
-  <input type="text" name="numberlisting1" id="numberlisting1" value={{ row.phoneNumber }}>
-  <!-- <input type="text" name="header1" id="header1" value="cnb"> -->
-  <input type="text" name="userPhone1" id="userPhone1" value={{ number }}>
-  <input type="submit" name="viewMembersCNB" value="View Members">
+  <br>
+  <input type="submit" name="viewMembersCNB" value="View Members"><br><br>
   <input type="submit" name="leave_cnb" value="Leave Group">
+  <input type="text" name="numberlisting1" id="numberlisting1" value={{ row.phoneNumber }} style="visibility: hidden; display: none">
+  <input type="text" name="userPhone1" id="userPhone1" value={{ number }} style="visibility: hidden; display: none">
 </form></td>
   
 </tr>
 {% endfor %}
 </table>
 
-<div style="bottom: 0">
-<table>
-<tr>
+<div style="bottom: 300; position : absolute;">
+<table border="1" style="background-color: rgb(100,240,100);">
+<tr style="text-align: center;">
   <th>Name</th>
-  <th>phoneNumber</th>
+  <th>Mobile</th>
 </tr>
   {% for row in cnb_users %}
-<tr>
+<tr style="text-align: center;">
   <td>{{ row.userName }}</td>
   <td>{{ row.userPhone }}</td>
   </tr>
@@ -54,40 +55,42 @@
 
 
 <div id="left" style="float: left; width: 50%; overflow: hidden;">
-<h1>Your Listings to Campus !!</h1>
+<h1 style="text-align: center;">Your Listings to Campus</h1>
 
-<table>
+<table border="1" style="background-color: rgb(100,240,100);">
 <tr>
   <th>Name</th>
-  <th>datetime</th>
-  <th>occupancy</th>
-  <th>phoneNumber</th>
+  <th>Date/Time</th>
+  <th>Occupancy</th>
+  <th>Mobile</th>
+  <th>Actions</th>
 </tr>
 {% for row in obj_cmps %}
-<tr>
-  <td>{{ row.Name }}</td>
+<tr style="text-align: center;">
+  <td>{{ row.name }}</td>
   <td>{{ row.datetime }}</td>
   <td>{{ row.occupancy }}</td>
   <td>{{ row.phoneNumber }}</td>
   <td> <form action="showMembersCampus" id="showMembers" name="showMembers" method="POST">
   {% csrf_token %}
   {{ form }}
-  <input type="text" name="numberlisting2" id="numberlisting2" value={{ row.phoneNumber }}>
-  <!-- <input type="text" name="header2" id="header2" value="cmps"> -->
-  <input type="text" name="userPhone2" id="userPhone2" value={{ number }}>
-  <input type="submit" name="viewMembersCampus" value="View Members">
+  <br>
+  <input type="submit" name="viewMembersCampus" value="View Members"><br><br>
   <input type="submit" name="leave_cmps" value="Leave Group">
+  <input type="text" name="numberlisting2" id="numberlisting2" value={{ row.phoneNumber }} style="display: none">
+  <input type="text" name="userPhone2" id="userPhone2" value={{ number }} style="display: none">
+  
 </form></td>
   
 </tr>
 {% endfor %}
 </table>
 
-<div>
-<table>
+<div style="position: absolute; bottom: 300">
+<table border="1" style="background-color: rgb(100,240,100); text-align: center;">
 <tr>
   <th>Name</th>
-  <th>phoneNumber</th>
+  <th>Mobile</th>
 </tr>
   {% for row in cmps_users %}
 <tr>
