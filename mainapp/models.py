@@ -1,6 +1,7 @@
 from __future__ import unicode_literals
 
 from django.db import models
+import datetime
 
 # Create your models here.
 class Category(models.Model):
@@ -45,8 +46,9 @@ class ToCampus(models.Model):
       ])
 
 class Users(models.Model):
-	phoneNumberListing = models.CharField(primary_key = True, max_length=20)
-	userPhone = models.CharField(max_length=20)
-	userName = models.CharField(max_length=20)
-	def __unicode__(self):
-  		return self.userName
+  uid = models.CharField(primary_key=True, max_length=40)
+  phoneNumberListing = models.CharField(max_length=20, primary_key=False)
+  userPhone = models.CharField(max_length=20)
+  userName = models.CharField(max_length=20)
+  def __unicode__(self):
+    return self.userName
