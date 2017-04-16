@@ -3,6 +3,7 @@ from django.http import HttpResponseRedirect
 from datetime import datetime, date, time
 from .forms import *
 from .models import *
+import itertools
 
 # Create your views here
 def startup(request):
@@ -22,10 +23,16 @@ def myListings(request):
             # ...
             # redirect to a new URL:
             number = phoneForm_.cleaned_data['phoneNumber']
-            context = {'number' : number}
+            # search users phone number in Users
+            # get corresponding values of listing phone number
+            # get all entries corresponding to listing phone number
+            # in cnb and cmps repsectively
+            listing = Users.objects.filter(userPhone = number).values('phoneNumberListing')
+            db_cnb = ToCNB.objects.filter(phoneNumber__in = listing)
+            db_cmps = ToCampus.objects.filter(phoneNumber__in = listing)
+            # db_cmps = ToCampus.objects.none()
+			# db_cmps = ToCampus.objects.filter(phoneNumber = listing)
 
-            db_cnb = ToCNB.objects.filter(phoneNumber = number)
-            db_cmps = ToCampus.objects.filter(phoneNumber = number)
             
             context = {'obj_cnb': db_cnb, 'obj_cmps': db_cmps}
             return render(request, "myListings.html", context)
