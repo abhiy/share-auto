@@ -19,12 +19,14 @@
   <td>{{ row.datetime }}</td>
   <td>{{ row.occupancy }}</td>
   <td>{{ row.phoneNumber }}</td>
-  <td> <form action="showMembers" id="showMembers" name="showMembers" method="POST">
+  <td> <<form action="showMembersCNB" id="showMembers" name="showMembers" method="POST">
   {% csrf_token %}
   {{ form }}
   <input type="text" name="numberlisting1" id="numberlisting1" value={{ row.phoneNumber }}>
   <!-- <input type="text" name="header1" id="header1" value="cnb"> -->
-  <input type="submit" value="View Members">
+  <input type="text" name="userPhone1" id="userPhone1" value={{ number }}>
+  <input type="submit" name="viewMembersCNB" value="View Members">
+  <input type="submit" name="leave_cnb" value="Leave Group">
 </form></td>
   
 </tr>
@@ -67,12 +69,14 @@
   <td>{{ row.datetime }}</td>
   <td>{{ row.occupancy }}</td>
   <td>{{ row.phoneNumber }}</td>
-  <td> <form action="showMembers" id="showMembers" name="showMembers" method="POST">
+  <td> <form action="showMembersCampus" id="showMembers" name="showMembers" method="POST">
   {% csrf_token %}
   {{ form }}
-  <input type="text" name="numberlisting1" id="numberlisting1" value={{ row.phoneNumber }}>
+  <input type="text" name="numberlisting2" id="numberlisting2" value={{ row.phoneNumber }}>
   <!-- <input type="text" name="header2" id="header2" value="cmps"> -->
-  <input type="submit" value="View Members">
+  <input type="text" name="userPhone2" id="userPhone2" value={{ number }}>
+  <input type="submit" name="viewMembersCampus" value="View Members">
+  <input type="submit" name="leave_cmps" value="Leave Group">
 </form></td>
   
 </tr>

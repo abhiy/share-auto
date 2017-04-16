@@ -34,7 +34,7 @@ def myListings(request):
 			# db_cmps = ToCampus.objects.filter(phoneNumber = listing)
 
             
-            context = {'obj_cnb': db_cnb, 'obj_cmps': db_cmps}
+            context = {'obj_cnb': db_cnb, 'obj_cmps': db_cmps, 'number' : number}
             return render(request, "myListings.html", context)
 
     # if a GET (or any other method) we'll create a blank form
@@ -84,15 +84,55 @@ def showListings(request):
     context = {'infoForm' : infoForm_, 'phoneForm' : phoneForm_ }
     return render(request, 'startup.html', context)
 
-def showMembers(request):
+def showMembersCNB(request):
 
     if request.method == 'POST':
-        # db_cnb = ToCNB.objects.filter(phoneNumber = number)
-        # db_cmps = ToCampus.objects.filter(phoneNumber = number)
         phonenumber = request.POST.get("numberlisting1", None)
-        userEntries = Users.objects.filter(phoneNumberListing=phonenumber)
-        context = {'cnb_users': userEntries}#, 'obj_cnb': db_cnb, 'obj_cmps': db_cmps}
-        return render(request, 'myListings.html', context)
+        userNumber = request.POST.get("userPhone1", None)
+        if 'viewMembersCNB' in request.POST:
+            # db_cnb = ToCNB.objects.filter(phoneNumber = number)
+            # db_cmps = ToCampus.objects.filter(phoneNumber = number)
+            userEntries = Users.objects.filter(phoneNumberListing=phonenumber)
+            context = {'cnb_users': userEntries}#, 'obj_cnb': db_cnb}
+            return render(request, 'myListings.html', context)
+        elif 'leave_cnb' in request.POST:
+        	uid_ = phonenumber + userNumber
+       		Users.objects.filter(uid = uid_).delete()	
+          	entries = ToCNB.objects.get(phoneNumber=phonenumber)
+        	entries.occupancy = entries.occupancy - 1
+        	entries.save()
+        	return render(request, 'successfullyRemoved.html')
+
+def showMembersCampus(request):
+
+    if request.method == 'POST':
+        phonenumber = request.POST.get("numberlisting2", None)
+        userNumber = request.POST.get("userPhone2", None)
+        if 'showMembersCampus' in request.POST:
+            userEntries = Users.objects.filter(phoneNumberListing=phonenumber)
+            context = {'cmps_users': userEntries}#, 'obj_cmps': db_cmps}
+            return render(request, 'myListings.html', context)
+        elif 'leave_cmps' in request.POST:
+        	uid_ = phonenumber + userNumber
+       		Users.objects.filter(uid = uid_).delete()
+        	entries = ToCampus.objects.get(phoneNumber=phonenumber)
+        	entries.occupancy = entries.occupancy - 1
+        	entries.save()
+        	return render(request, 'successfullyRemoved.html')
+
+def showMembers(request):
+	if request.method == 'POST':
+		db = request.POST.get("header", None)
+		if db == "ToCNB":
+			phonenumber = request.POST.get("numberlisting1", None)
+			userEntries = Users.objects.filter(phoneNumberListing=phonenumber)
+			context = {'cnb_users': userEntries}
+			return render(request, 'myListings.html', context)
+		elif db == "ToCampus":
+			phonenumber = request.POST.get("numberlisting1", None)
+			userEntries = Users.objects.filter(phoneNumberListing=phonenumber)
+			context = {'cmps_users': userEntries}
+			return render(request, 'myListings.html', context)
 
 
 def addToListing(request):
