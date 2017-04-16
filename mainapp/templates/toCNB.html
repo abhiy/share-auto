@@ -3,37 +3,57 @@
 {% block title %}{{ header }}{% endblock %}
 
 {% block content %}
-<div style="width:500px; margin:0 auto;">
 
-<table border="1" style="background-color: rgb(100,240,100);">
-<tr style="text-align: center;">
+<div style="width:750px; margin:0 auto;">
+
+<table border="1" style="text-align: center; background-color: rgb(100,240,100); border-collapse: collapse; table-layout: auto;">
+<tr>
   <th>Name</th>
   <th>Date/Time</th>
   <th>Occupancy</th>
   <th>Mobile</th>
+  <th>Action 1</th>
+  <th>Action 2</th>
 </tr>
 {% for row in obj %}
-<tr style="text-align: center;">
-  <td>{{ row.Name }}</td>
+<tr>
+  <td>{{ row.name }}</td>
   <td>{{ row.datetime }}</td>
   <td>{{ row.occupancy }}</td>
   <td>{{ row.phoneNumber }}</td>
 
- <td> <form action="addtolist" id="addMe" name="addMe" method="POST">
+ <td>
+
+ <form action="addtolist" id="addMe" name="addMe" method="POST">
+ <table>
+ <tr>
+ <td>
   {% csrf_token %}
   {{ form }}
-  <input type="text" name="numberlisting" id="numberlisting" value={{ row.phoneNumber }}>
-  <input type="text" name="header" id="header" value={{ header }}>
+  <input type="text" name="numberlisting" id="numberlisting" value={{ row.phoneNumber }} style="display: none">
+  <input type="text" name="header" id="header" value={{ header }} style="display: none;"><br>
   <input type="submit" value="Add Me">
-</form></td>
-  <td> <form action="showMembers" id="showMembers" name="showMembers" method="POST">
+  </td>
+  </tr>
+  </table>
+</form>
+</td>
+<td>
+<form action="showMembers" id="showMembers" name="showMembers" method="POST" style="display: table;">
+<table>
+ <tr>
+ <td>
   {% csrf_token %}
-  <input type="text" name="numberlisting1" id="numberlisting1" value={{ row.phoneNumber }}>
-  <input type="text" name="header" id="header" value={{ header }}>
-  <input type="submit" value="View Members">
+   <input style="alignment-baseline: central;" type="submit" value="View Members">
+  <input type="text" name="numberlisting1" id="numberlisting1" value={{ row.phoneNumber }} style="display: none">
+  <input type="text" name="header" id="header" value={{ header }} style="display: none">
+  </td>
+  </tr>
+  </table>
 </form></td>
 </tr>
 {% endfor %}
+
 </table>
 
 <div style="bottom: 200; position : absolute;">
