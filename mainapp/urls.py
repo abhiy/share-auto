@@ -8,5 +8,6 @@ urlpatterns = [
 	url(r'goToCreateListing', views.goToCreateListing),
 	url(r'createlist', views.createListing),
 	url(r'showMembers', views.showMembers),
+	url(r'showMembersCampus', views.showMembersCampus),
     url(r'', views.startup),
  ]

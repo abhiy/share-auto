@@ -35,7 +35,7 @@ def myListings(request):
         phoneForm_ = phoneForm()
         infoForm_ = infoForm()
     context = {'infoForm' : infoForm_, 'phoneForm' : phoneForm_ }
-    return render(request, 'startup.html', context)    
+    return render(request, 'startup.html', context)
 
 def showListings(request):
     # if this is a POST request we need to process the form data
@@ -84,7 +84,7 @@ def showMembers(request):
         # db_cmps = ToCampus.objects.filter(phoneNumber = number)
         phonenumber = request.POST.get("numberlisting1", None)
         userEntries = Users.objects.filter(phoneNumberListing=phonenumber)
-        context = {'cnb_users': userEntries}#, 'obj_cnb': db_cnb, 'obj_cmps': db_cmps}
+        context = {'cnb_users': userEntries, 'obj_cnb': db_cnb}
         return render(request, 'myListings.html', context)
 
 
@@ -155,3 +155,11 @@ def createListing(request):
     else:
         createListingForm_ = createListingForm()
     return render(request, 'successfullyAdded.html')
+
+def showMembersCampus(request):
+
+    if request.method == 'POST':
+        phonenumber = request.POST.get("numberlisting2", None)
+        userEntries = Users.objects.filter(phoneNumberListing=phonenumber)
+        context = {'cmps_users': userEntries, 'obj_cmps': db_cmps}
+        return render(request, 'myListings.html', context)

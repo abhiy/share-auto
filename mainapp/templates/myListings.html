@@ -61,13 +61,13 @@
   <th>occupancy</th>
   <th>phoneNumber</th>
 </tr>
-{% for row in obj_cnb %}
+{% for row in obj_cmps %}
 <tr>
   <td>{{ row.Name }}</td>
   <td>{{ row.datetime }}</td>
   <td>{{ row.occupancy }}</td>
   <td>{{ row.phoneNumber }}</td>
-  <td> <form action="showMembers" id="showMembers" name="showMembers" method="POST">
+  <td> <form action="showMembersCampus" id="showMembersCampus" name="showMembersCampus" method="POST">
   {% csrf_token %}
   {{ form }}
   <input type="text" name="numberlisting2" id="numberlisting2" value={{ row.phoneNumber }}>
